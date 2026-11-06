@@ -7,12 +7,13 @@ In medicine a confident wrong answer is worse than none. Language models invent 
 ## What it does
 
 1. Fetches PubMed abstracts for the question (NCBI E-utilities; reviews, meta-analyses and trials first).
+   If the LLM-written query returns too little, it also searches the question's own key terms and merges the results — which is what a person would type, and what took "does vitamin C prevent the common cold" from zero papers to six, including the Cochrane review.
 2. Keeps only the abstracts an LLM judge says actually study the question.
 3. **Refuses** (returns a `Refusal` with a reason) if fewer than N relevant papers remain (default 2).
 4. Given a draft with cited PMIDs, rejects citations that are not in the evidence and flags sentences with no citation.
 5. Returns a structured verdict.
 
-It is LLM-agnostic: you pass any function `llm(prompt: str) -> str`. Only dependency: `httpx`.
+It is LLM-agnostic: you pass any function `llm(prompt: str) -> str`. Dependencies: `httpx` and `defusedxml` (network XML is parsed with entity expansion refused).
 
 ## 30-second quickstart
 
@@ -51,12 +52,12 @@ VivaMed is a faceless "medical myth or fact" YouTube Shorts channel. Its script 
 
 ## Limitations
 
-- **LLM judges can be wrong.** The relevance filter can keep an unrelated paper or drop a relevant one. Errors in parsing the judge's answer fail closed (nothing is kept).
+- **LLM judges can be wrong.** The relevance filter can keep an unrelated paper or drop a relevant one. The judge can only ever keep PMIDs that were actually fetched, so it cannot invent a citation; if its answer is not valid JSON the PMIDs are read out of the prose instead, and when none can be read nothing is kept and the gate refuses.
 - **A bad paper can pass.** The gate checks that a paper is on topic, not that it is good: a small, biased or retracted study still counts. It does not weigh evidence or detect conflicting findings.
 - Only abstracts are read; PubMed search can miss relevant work, and a refusal does not mean the claim is false.
 - It checks that a citation is *in the evidence*, not that the sentence is *faithful* to the paper. The uncited-sentence check is a heuristic.
 - **Not medical advice.** This is a research and content-quality tool; a person with expertise must review anything that matters.
-- NCBI asks for modest request rates; there is no rate limiting or API-key support yet.
+- Requests to NCBI are spaced to its unauthenticated limit of 3 per second, process-wide. There is no NCBI API-key support yet (an API key would raise that limit to 10 per second).
 
 ## Development
 

@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+build/
+dist/
+.env
+
+# Claude keeps dated backups beside the file it edits; they must never be published (3 Nov)
+*.bak-*

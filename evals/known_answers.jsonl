@@ -1,0 +1,10 @@
+{"question": "Does chewing gum after surgery speed recovery of bowel function?", "expect": "supported", "why": "many RCTs and meta-analyses"}
+{"question": "Does vitamin D supplementation prevent fractures in older adults?", "expect": "supported", "why": "large RCTs (VITAL) and meta-analyses"}
+{"question": "Does exercise reduce symptoms of depression?", "expect": "supported", "why": "Cochrane review and many RCTs"}
+{"question": "Does varenicline help people quit smoking?", "expect": "supported", "why": "Cochrane review, EAGLES trial"}
+{"question": "Do copper bracelets relieve arthritis pain?", "expect": "supported", "why": "RCTs exist (and found no effect): the gate checks for evidence, not for a yes"}
+{"question": "Does drinking celery juice cure cancer?", "expect": "refused", "why": "no human studies"}
+{"question": "Does sleeping with your head facing north prevent migraines?", "expect": "refused", "why": "no studies"}
+{"question": "Does drinking pickle juice cure COVID-19?", "expect": "refused", "why": "no studies"}
+{"question": "Does eating blue-coloured candy improve exam memory in students?", "expect": "refused", "why": "no studies"}
+{"question": "Does wearing an amethyst crystal lower blood pressure?", "expect": "refused", "why": "no studies"}

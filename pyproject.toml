@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "refusal-gate"
+version = "0.1.0"
+description = "No source, no claim: refuse to answer health questions unless real PubMed papers on the topic back them up."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Adnan Shamim Dar" }]
+dependencies = ["httpx>=0.24", "defusedxml>=0.7.1"]
+keywords = ["pubmed", "llm", "hallucination", "citations", "medicine"]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.scripts]
+refusal-gate = "refusal_gate.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/refusal_gate"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
